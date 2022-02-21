@@ -36,7 +36,7 @@ import './index.css';
                 console.log('verifyed');
                 const value = model.getValue();
 
-                const errs = linter.esLinter.verify(value, linter.config);
+                const errs = linter.esLinter.verify(value, linter.config, '/index.jsx');
 
                 const severityMap = {
                     2: 8, // 2 for eslint is error
