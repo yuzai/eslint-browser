@@ -1,6 +1,6 @@
 ## demo
 
-[demo演示](yuzai.github.io/eslint-browser/)
+[demo演示](http://yuzai.github.io/eslint-browser/)
 
 ## 目的
 
@@ -50,7 +50,7 @@ function verify() {
 }
 ```
 
-完整的使用实例可以参考工程下的index.html。也可查看其[demo演示](yuzai.github.io/eslint-browser/)
+完整的使用实例可以参考工程下的index.html。也可查看其[demo演示](http://yuzai.github.io/eslint-browser/)
 
 ## 背后思路
 
