@@ -6,11 +6,11 @@
 
 只导出了amd格式，在dist目录下。
 
-使用时，建议通过importScripts引入，当然，也可以通过script标签或者amd的方式引入到主进程做测试。
+使用时，建议在web worker中通过importScripts引入，当然，也可以通过script标签或者amd的方式引入到主进程做测试。
 
 ## 使用示例
 
-1. 使用script标签引入，或在worker中通过importScripts引入
+1. 使用script标签引入，或在web worker中通过importScripts引入
 
 2. 和monaco配合，示例代码如下:
 
