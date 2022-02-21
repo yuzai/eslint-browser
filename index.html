@@ -1,2 +1,78 @@
-<script src="./eslint.js"></script>
-<script src="./dist/index.bundle.js"></script>
+<html>
+    <div id="body" style="width: 800px; height: 600px"></div>
+    <script src="./dist/index.bundle.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.30.1/min/vs/loader.min.js"></script>
+    <script>
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.30.1/min/vs' } });
+
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('body'), {
+                model: null,
+                theme: 'vs-dark',
+            });
+
+            const model = monaco.editor.createModel(
+                `import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+
+(async () => {
+  const {Button} = await import('./Button.jsx');
+  const root = document.getElementById('root');
+  ReactDOM.render((
+    <div>
+      <Button>Direct</Button>
+    </div>
+  ), root);
+})();`,
+                'javascript',
+                new monaco.Uri().with({ path: '/index.jsx' }),
+            );
+
+            editor.setModel(model);
+
+            function verify() {
+                console.log('verifyed');
+                const value = model.getValue();
+
+                const errs = linter.esLinter.verify(value, linter.config);
+
+                const severityMap = {
+                    2: 8, // 2 for eslint is error
+                    1: 4, // 1 for eslint is warning
+                }
+
+                const ruleDefines = linter.esLinter.getRules();
+
+                const markers = errs.map(err => ({
+                    code: {
+                        value: err.ruleId,
+                        target: ruleDefines.get(err.ruleId).meta.docs.url,
+                    },
+                    startLineNumber: err.line,
+                    endLineNumber: err.endLine,
+                    startColumn: err.column,
+                    endColumn: err.endColumn,
+                    message: err.message,
+                    // 设置错误的等级，此处eslint与monaco的存在差异，做一层映射
+                    severity: severityMap[err.severity],
+                    source: 'eslint',
+                }));
+
+                monaco.editor.setModelMarkers(model, 'eslint', markers);
+            }
+
+            verify();
+
+            let timer = null;
+
+            model.onDidChangeContent(() => {
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    verify();
+                }, 500);
+            });
+        });
+    </script>
+</html>
