@@ -1,3 +1,7 @@
+## demo
+
+[demo演示](yuzai.github.io/eslint-browser/)
+
 ## 目的
 
 满足webide在eslint在浏览器中使用，内置airbnb-config, 支持react, react/hooks规则，可以通过config.rule去修改规则的配置
@@ -46,11 +50,11 @@ function verify() {
 }
 ```
 
-完整的使用实例可以参考工程下的index.html。也可查看其[demo演示]()
+完整的使用实例可以参考工程下的index.html。也可查看其[demo演示](yuzai.github.io/eslint-browser/)
 
 ## 背后思路
 
-参考本工程下thinks.md，也可参考[文章]()中eslint部分;
+参考本工程下[thinks.md](https://github.com/yuzai/eslint-browser/blob/main/thinks.md)，也可参考[文章-还未发表]()中eslint部分;
 
 ## 最后
 
